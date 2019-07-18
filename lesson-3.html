@@ -1,0 +1,32 @@
+<body>
+
+	<div id="root"></div>
+	<script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+	<script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+	<script type="text/babel">
+	const rootElement = document.getElementById("root");
+	//const helloElement = (props) => <h1>{props.greet}</h1>
+	//const element = (
+		//<div>
+			//{helloElement({greet: 'hello world!'})}
+		//</div>
+	//)
+	//const helloElement = (props) => <h1 className={props.className}>{props.greet}</h1>
+	//const element = (
+		//<div>
+			//{React.createElement(helloElement, {greet: 'hello world!', className: "greeting"})}
+		//</div>
+	//)	
+	const HelloElement = (props) => <h1 className={props.className}>{props.greet}</h1>
+	const element = (
+		<div>
+			<HelloElement className="greeting" greet="hello world!"/>
+		</div>
+	)	
+	
+	console.log(element)
+	ReactDOM.render(element, rootElement);
+	</script>
+
+</body>

@@ -1,0 +1,111 @@
+<body>
+
+	<div id="root"></div>
+	<script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+	<script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+	
+	<style>
+		
+	</style>
+	<script type="text/babel">
+	class MyFancyForm extends React.Component {
+  static avalableOption = [
+    "apple",
+    "grape",
+    "cherry",
+    "orange",
+    "pear",
+    "peach"
+  ];
+
+  state = {
+    multiline: "",
+    commaSeparated: "",
+    multiSelect: []
+  };
+
+  handleCommaSeparatedChange = event => {
+    const { value } = event.target;
+    const allVals = value
+      .split(",")
+      .map(v => v.trim())
+      .filter(Boolean);
+    this.setState({
+      commaSeparated: value,
+      multiline: allVals.join("\n"),
+      multiSelect: allVals.filter(v => MyFancyForm.avalableOption.includes(v))
+    });
+  };
+  handleMultilineChange = event => {
+    const { value } = event.target;
+    const allVals = value
+      .split("\n")
+      .map(v => v.trim())
+      .filter(Boolean);
+    this.setState({
+      multiline: value,
+      commaSeparated: allVals.join(","),
+      multiSelect: allVals.filter(v => MyFancyForm.avalableOption.includes(v))
+    });
+  };
+  handleMultiselectChange = event => {
+    const allVals = Array.from(event.target.selectedOptions).map(o => o.value);
+    this.setState({
+      multiSelect: allVals,
+      multiline: allVals.join("\n"),
+      commaSeparated: allVals.join(",")
+    });
+  };
+  render() {
+    const { commaSeparated, multiline, multiSelect } = this.state;
+    return (
+      <form>
+        <div>
+          <lable>
+            comma separated values:
+            <br />
+            <input
+              value={commaSeparated}
+              onChange={this.handleCommaSeparatedChange}
+              type="text"
+            />
+          </lable>
+        </div>
+        <div>
+          <lable>
+            Multiline values:
+            <br />
+            <textarea
+              value={multiline}
+              onChange={this.handleMultilineChange}
+              rows={MyFancyForm.avalableOption.length}
+            />
+          </lable>
+        </div>
+        <div>
+          <lable>
+            Multiline values:
+            <br />
+            <select
+              multiple
+              value={multiSelect}
+              style={{ overflow: "hidden" }}
+              onChange={this.handleMultiselectChange}
+              size={MyFancyForm.avalableOption.length}
+            >
+              {MyFancyForm.avalableOption.map((item, index) => (
+                <option key={index}>{item}</option>
+              ))}
+            </select>
+          </lable>
+        </div>
+      </form>
+    );
+  }
+}
+
+const rootElement = document.getElementById("root");
+ReactDOM.render(<MyFancyForm />, rootElement);
+	</script>
+</body>

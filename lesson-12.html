@@ -1,0 +1,50 @@
+<body>
+
+	<div id="root"></div>
+	<script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+	<script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+	
+	<style>
+		
+	</style>
+	<script type="text/babel">
+	const rootElement = document.getElementById("root");
+
+	class NameForm extends React.Component{
+		handleSubmit = (event) => {
+			event.preventDefault()
+			console.log({target: event.target})
+			console.log(event.target[0].value)
+			console.log(event.target.elements.userName.value)
+			console.log(this.inputNode.value)
+		}
+		render(){
+			return(
+				<form onSubmit={this.handleSubmit}>
+					<label style={{fontSize: 25}}>
+						Name: <br/>
+						<input 
+							style={{width: 200, height: 50, fontSize: 25}} 
+							type="text"
+							ref={node => this.inputNode = node}
+							name="userName"
+						/> <br/>
+					</label>
+					<button style={{fontSize: 25}} type="submit">Submit</button>
+				</form>
+			)
+		}
+	}
+
+	const element = (
+
+		<NameForm />
+		
+	)
+
+	ReactDOM.render(
+		element
+		, rootElement);
+	</script>
+</body>

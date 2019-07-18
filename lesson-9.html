@@ -1,0 +1,80 @@
+<body>
+
+	<div id="root"></div>
+	<script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+	<script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+	<style>
+		.button{
+			width: 100px;
+			height: 40px;
+			background-color: aliceblue;
+			font-size: 30px;
+			border: 1px solid gray;
+			margin: 10px;
+		}
+	</style>
+	<script type="text/babel">
+	const rootElement = document.getElementById("root");
+	class StopWatch extends React.Component {
+		state = {
+			running: false,
+			lapse: 0,
+		}
+
+		handleRunClick = () => {
+			
+			this.setState(state =>{
+				if(state.running){
+					clearInterval(this.timer)
+				}else{
+					const startTime = Date.now() - this.state.lapse;
+					this.timer = setInterval(() => {
+						this.setState({lapse: Date.now() - startTime})	
+					})
+				}
+				return {running: !state.running}
+			})
+		}
+
+		handleClearClick = () => {
+			clearInterval(this.timer)
+			this.setState({
+				lapse: 0,
+				running: false,
+			})
+		}
+
+		componentWillUnmount(){
+			clearInterval(this.timer)
+		}
+
+		render(){
+			const {lapse, running} = this.state
+			return(
+				<div style={{fontSize: 30,
+					backgroundColor: '#ffff99',
+					margin: '20px auto', 
+					padding: '10px 30px', 
+					textAlign: 'center',
+					width: '200px'}}>
+					<div>
+						<label>{lapse}ms</label>
+					</div>
+					<div>
+						<button onClick={this.handleRunClick} className="button">{running ? 'Stop' : 'Start'}</button>
+					</div>
+					
+					<div>
+						<button onClick={this.handleClearClick} className="button">Clear</button>
+					</div>
+					
+				</div>
+			)
+		}
+	}
+	const element = <StopWatch />
+
+	ReactDOM.render(element, rootElement);
+	</script>
+</body>

@@ -1,0 +1,28 @@
+<body>
+
+	<div id="root"></div>
+	<script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+	<script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+	<script type="text/babel">
+	const rootElement = document.getElementById("root");
+	function tick() {
+		const time = new Date();
+		const element = (
+			<div>
+				<h1>
+					time: <br/>
+					<input value={time.toLocaleTimeString()}/>
+				</h1>
+			</div>
+		);	
+		ReactDOM.render(element, rootElement);
+	}
+
+	tick();
+	setInterval(() => {
+		tick()
+	}, 1000);
+	</script>
+
+</body>

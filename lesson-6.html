@@ -1,0 +1,70 @@
+<body>
+
+	<div id="root"></div>
+	<script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+	<script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+	<style>
+		.box{
+			border: 2px solid black;
+			width: 100px;
+			font-size: 30;
+			display: flex;
+		}
+		.box--small{
+			height: 100px;
+		}
+		.box--medium{
+			height: 120px;
+			width: 150px;
+		}
+		.box--high{
+			height: 200px;
+			width: 190px;
+		}
+
+
+	</style>
+	<script type="text/babel">
+	const rootElement = document.getElementById("root");
+	
+	function Box({style, size,...rest}){
+		const sizeClassName = (
+			size 
+			? `box--${size}` 
+			: ''
+		)
+		return (
+			<div
+				className={`box ${sizeClassName}`.trim()}
+				style={{paddingLeft: 50, paddingTop: 20, ...style}}
+				{...rest}
+			>
+			</div>
+		);
+	}
+
+	const element = ([
+		<Box 
+			size="small"
+			style={{backgroundColor: 'lightblue'}}>
+			small box
+		</Box>,
+		<Box 
+			size="medium"
+			style={{backgroundColor: 'orange'}}>
+			medium box
+		</Box>,
+		<Box 
+			size="high"
+			style={{backgroundColor: 'red'}}>
+			high box
+		</Box>,
+		]
+	)
+
+
+	ReactDOM.render(element, rootElement);
+	</script>
+
+</body>
